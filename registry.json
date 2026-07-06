@@ -1,0 +1,22 @@
+{
+  "name": "Claude Code Skills Marketplace",
+  "version": "1.0.0",
+  "description": "A community-driven marketplace for Claude Code skills",
+  "skills": [
+    {
+      "name": "disk-cleanup",
+      "description": "Analyze disk usage and clean up caches, temp files, app bloat, SDK leftovers, old restore points, and more. Runs tiered safety levels — from safe caches to advanced cleanups. Supports Windows, macOS, and Linux.",
+      "version": "1.0.0",
+      "author": "xiaxin5666",
+      "platforms": ["windows", "macos", "linux"],
+      "categories": ["system", "utilities", "cleanup"],
+      "safety": "tiered",
+      "argumentHint": "[level: safe|standard|deep|full] [target: specific-folder-name] [--dry-run]",
+      "path": "skills/disk-cleanup/SKILL.md",
+      "installPath": "disk-cleanup",
+      "autoInvoke": true,
+      "context": "fork",
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "AskUserQuestion"]
+    }
+  ]
+}
