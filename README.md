@@ -9,7 +9,7 @@
 一次性下载所有技能，后续可以 `git pull` 更新：
 
 ```bash
-# SSH（推荐，国内用户需配置代理）
+# SSH
 git clone git@github.com:xiaxin5666/claude-skills-marketplace.git
 
 # 或 HTTPS
