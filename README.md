@@ -9,14 +9,14 @@
 一次性下载所有技能，后续可以 `git pull` 更新：
 
 ```bash
-# SSH
+# GitHub
 git clone git@github.com:xiaxin5666/claude-skills-marketplace.git
 
-# 或 HTTPS
-git clone https://github.com/xiaxin5666/claude-skills-marketplace.git
+# GitCode（国内访问更快）
+git clone git@gitcode.com:xiaxin5666/claude-skills-marketplace.git
 ```
 
-然后把你需要的技能复制到 Claude Code 技能目录：
+然后将技能复制到 Claude Code 技能目录：
 
 ```bash
 # 安装单个技能（以 disk-cleanup 为例）
@@ -26,54 +26,46 @@ cp -r claude-skills-marketplace/skills/disk-cleanup ~/.claude/skills/
 cp -r claude-skills-marketplace/skills/* ~/.claude/skills/
 ```
 
-> **注意**：Windows 用户的技能目录是 `%USERPROFILE%\.claude\skills\`，PowerShell 中执行：
+> **Windows 用户**：技能目录为 `%USERPROFILE%\.claude\skills\`，PowerShell 执行：
 > ```powershell
 > Copy-Item -Recurse claude-skills-marketplace\skills\disk-cleanup $env:USERPROFILE\.claude\skills\
 > ```
 
-### 方式二：curl / wget 直接下载单个技能
+### 方式二：curl / wget 直接下载
 
-无需克隆整个仓库，只下载你需要的那个技能：
+无需克隆整个仓库，只下载你需要的技能：
 
 ```bash
-# 以 disk-cleanup 为例，先创建目录
 mkdir -p ~/.claude/skills/disk-cleanup
 
-# curl 下载
+# GitHub
 curl -o ~/.claude/skills/disk-cleanup/SKILL.md \
   https://raw.githubusercontent.com/xiaxin5666/claude-skills-marketplace/main/skills/disk-cleanup/SKILL.md
 
-# 或 wget 下载
-wget -O ~/.claude/skills/disk-cleanup/SKILL.md \
-  https://raw.githubusercontent.com/xiaxin5666/claude-skills-marketplace/main/skills/disk-cleanup/SKILL.md
+# GitCode（国内更快）
+curl -o ~/.claude/skills/disk-cleanup/SKILL.md \
+  https://gitcode.com/xiaxin5666/claude-skills-marketplace/-/raw/main/skills/disk-cleanup/SKILL.md
 ```
 
 ### 方式三：下载 ZIP 包
 
-如果无法使用 Git，可以直接下载 ZIP：
+- **GitHub**：https://github.com/xiaxin5666/claude-skills-marketplace → Code → Download ZIP
+- **GitCode**：https://gitcode.com/xiaxin5666/claude-skills-marketplace → 下载 → ZIP
 
-1. 打开 https://github.com/xiaxin5666/claude-skills-marketplace
-2. 点击绿色 **Code** 按钮 → **Download ZIP**
-3. 解压后，将 `skills/` 目录下需要的技能复制到 `~/.claude/skills/`
+解压后将 `skills/` 下需要的技能复制到 `~/.claude/skills/`。
 
 ### 方式四：手动复制
 
-在浏览器中打开对应技能的 SKILL.md 文件，直接复制全部内容，在本地创建文件：
+浏览器打开 SKILL.md，复制全部内容，本地创建文件：
 
 | 平台 | 路径 |
 |------|------|
 | macOS / Linux | `~/.claude/skills/<技能名>/SKILL.md` |
 | Windows | `%USERPROFILE%\.claude\skills\<技能名>\SKILL.md` |
 
-SKILL.md 内容地址（以 disk-cleanup 为例）：
-
-```
-https://raw.githubusercontent.com/xiaxin5666/claude-skills-marketplace/main/skills/disk-cleanup/SKILL.md
-```
-
 ### 安装后验证
 
-在 Claude Code 中输入 `/disk-cleanup`，如果能自动补全并执行，说明安装成功。
+Claude Code 中输入 `/disk-cleanup`，能自动补全并执行即安装成功。
 
 ---
 
@@ -83,7 +75,7 @@ https://raw.githubusercontent.com/xiaxin5666/claude-skills-marketplace/main/skil
 |------|------|----------|
 | [`disk-cleanup`](./skills/disk-cleanup/SKILL.md) | 磁盘分析与清理：缓存、临时文件、应用残留、SDK 旧版本、系统还原点等。分 6 个安全等级，支持 `--dry-run` 预览模式。 | Windows / macOS / Linux |
 
-### disk-cleanup 使用示例
+### 使用示例
 
 ```bash
 /disk-cleanup                  # 交互模式，按引导选择清理等级
@@ -99,16 +91,12 @@ https://raw.githubusercontent.com/xiaxin5666/claude-skills-marketplace/main/skil
 
 ## 贡献技能
 
-有好用的技能？欢迎分享！
-
 1. Fork 本仓库
-2. 创建你的技能目录：`skills/<技能名>/SKILL.md`
-3. 将技能添加到 [`registry.json`](./registry.json) 和本 README 的技能列表中
+2. 创建技能目录：`skills/<技能名>/SKILL.md`
+3. 更新 [`registry.json`](./registry.json) 和本 README
 4. 提交 Pull Request
 
 ### 技能格式
-
-每个技能存放在 `skills/` 下的独立目录中，目录内包含一个 `SKILL.md` 文件：
 
 ```
 skills/
@@ -116,18 +104,14 @@ skills/
     └── SKILL.md    # YAML 前置信息 + Markdown 指令
 ```
 
-`SKILL.md` 文件结构：
-
 ```yaml
 ---
-name: 技能名               # 必填，kebab-case，也是 / 命令名
-description: "描述..."     # 强烈推荐，Claude 据此决定是否自动调用
+name: 技能名               # kebab-case，也是 / 命令名
+description: "描述..."     # Claude 据此决定是否自动调用
 user-invocable: true       # 是否可通过 / 菜单手动调用
-argument-hint: "[参数]"    # 可选，斜杠命令的参数提示
+argument-hint: "[参数]"    # 斜杠命令的参数提示
 ---
 ```
-
-完整示例参见 [`skills/disk-cleanup/SKILL.md`](./skills/disk-cleanup/SKILL.md)。
 
 ### 编写建议
 
